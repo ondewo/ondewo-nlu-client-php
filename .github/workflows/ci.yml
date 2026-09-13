@@ -17,9 +17,9 @@ jobs:
     name: pre-commit (markdownlint + hygiene)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -41,7 +41,7 @@ jobs:
         # are really exercised.
         php-version: ['8.1', '8.4']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # ext-grpc is a hard requirement of the generated stubs: every *Client.php extends
       # \Grpc\BaseStub. setup-php ships a prebuilt extension, so no PECL C++ build is needed.
@@ -85,7 +85,7 @@ jobs:
       # `make coverage` already fails when the report is missing, and --coverage-text puts the
       # numbers in the log - this is just the machine-readable copy.
       - name: Upload the coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-php-${{ matrix.php-version }}
           path: build/coverage/clover.xml
