@@ -19,7 +19,8 @@
   who installs the package.
 * Ships as the composer package `ondewo/nlu-client-php`, installable with
   `composer require ondewo/nlu-client-php`. Requires PHP >= 8.1 and the `grpc` PHP extension, which every
-  generated `<Service>Client` needs because it extends `\Grpc\BaseStub`.
+  generated `<Service>Client` needs because it extends `\Grpc\BaseStub`, and — for the JSON wire format only —
+  `ext-bcmath`.
 * Hand-written sources live in `auth/` at the repository root, never in the compiler-owned `src/`; the image
   adds that directory to the shipped autoloader's classmap on its own. `Ondewo\Nlu\Auth\BearerTokenAuthenticator`
   turns a token into the `$opts` array a generated stub is constructed with and stamps
@@ -39,6 +40,9 @@
   build below 100% line coverage. Generated code is excluded from that metric and covered by the tests above.
 * GitHub Actions runs `composer validate`, `php -l`, the suite and the coverage gate on PHP 8.1 and 8.4
   against the committed stubs — no docker image is built and no submodule is checked out there.
+* The job installs `ext-bcmath` alongside `ext-grpc`: `google/protobuf` only *suggests* bcmath, but its
+  pure-PHP JSON parser range-checks every integer with `bccomp()`, so `mergeFromJsonString()` on a message
+  with an int field dies without it. The suite covers that path explicitly.
 * The dev tool chain (PHPUnit, the coverage gate) lives in its own composer project under `tools/`. It is
   deliberately **not** `require-dev` in the root manifest: `composer update --no-dev` still resolves dev
   requirements, and the compiler image resolves the merged manifest with the network disabled, so one

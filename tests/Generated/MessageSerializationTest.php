@@ -8,6 +8,7 @@ use Google\Protobuf\Timestamp;
 use Ondewo\Nlu\Agent;
 use Ondewo\Nlu\AgentStatus;
 use Ondewo\Nlu\AgentView;
+use Ondewo\Nlu\GetRemoteOperationContainerLogsRequest;
 use Ondewo\Nlu\ListAgentsRequest;
 use Ondewo\Nlu\RagUpdateDatasetRequest;
 use PHPUnit\Framework\TestCase;
@@ -113,6 +114,35 @@ final class MessageSerializationTest extends TestCase
 
         self::assertSame('page-2', $parsed->getPageToken());
         self::assertSame(AgentView::AGENT_VIEW_FULL, $parsed->getAgentView());
+    }
+
+    public function testAnIntegerFieldSurvivesAJsonRoundTrip(): void
+    {
+        // Its own case because google/protobuf's PURE-PHP JSON parser range-checks every integer
+        // with bccomp(): without ext-bcmath this dies with "Call to undefined function
+        // Google\Protobuf\Internal\bccomp()" on the first int field it meets. The extension is a
+        // `suggest` of google/protobuf, not a `require`, so nothing else would surface that.
+        // int32 and int64 are both here: JSON spells the first as a number and the second as a
+        // string, which are different branches of the parser - and of the range check.
+        $request = new GetRemoteOperationContainerLogsRequest();
+        $request->setName('projects/6b2c8e5a/agent/operations/op-1');
+        $request->setMaxLines(250);
+        $request->setAfterSeq(1700000000123);
+
+        $json = $request->serializeToJsonString();
+
+        // The integers have to REACH the JSON or the parser never range-checks them, and the case
+        // would be green with or without the extension: a proto3 scalar at its zero value is
+        // omitted from the JSON entirely.
+        self::assertStringContainsString('"maxLines":250', $json);
+        self::assertStringContainsString('"afterSeq":"1700000000123"', $json);
+
+        $parsed = new GetRemoteOperationContainerLogsRequest();
+        $parsed->mergeFromJsonString($json);
+
+        self::assertSame('projects/6b2c8e5a/agent/operations/op-1', $parsed->getName());
+        self::assertSame(250, $parsed->getMaxLines());
+        self::assertSame(1700000000123, $parsed->getAfterSeq());
     }
 
     public function testTheEnumZeroValueIsTheUnspecifiedMember(): void
