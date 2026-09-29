@@ -67,7 +67,7 @@ The client version tracks the ONDEWO NLU API in major and minor version, so pin 
 matches the server you talk to:
 
 ```bash
-composer require ondewo/nlu-client-php:^7.2
+composer require ondewo/nlu-client-php:^7.3
 ```
 
 or, in `composer.json`:
@@ -75,7 +75,7 @@ or, in `composer.json`:
 ```json
 {
   "require": {
-    "ondewo/nlu-client-php": "^7.2"
+    "ondewo/nlu-client-php": "^7.3"
   }
 }
 ```

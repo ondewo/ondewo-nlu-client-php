@@ -54,11 +54,11 @@ export
 
 # MUST BE THE SAME AS THE API in Major and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_NLU_VERSION=7.2.0
+ONDEWO_NLU_VERSION=7.3.0
 
 # Submodule pins. Both are checked out by `make checkout_defined_submodule_versions`, so the
 # stubs of a release are always reproducible from the two commits recorded here.
-ONDEWO_NLU_API_GIT_BRANCH=tags/7.2.0
+ONDEWO_NLU_API_GIT_BRANCH=tags/7.3.0
 # The compiler has to be 5.15.2 or newer: an older image adds "auth/" to composer.json's
 # autoload.classmap and then aborts its own next run on it ('Could not scan for classes inside "auth/"').
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.2
