@@ -496,9 +496,11 @@ validate_release_credentials: login_to_gh ## Fail unless GitHub accepts GITHUB_G
 		echo "$(RED)[ERROR]$(NC) GITHUB_GH_TOKEN is valid but has no push access to ${GH_API_REPO} (permissions.push=$$push)"; exit 1; fi
 	@echo "$(GREEN)[SUCCESS]$(NC) GITHUB_GH_TOKEN is valid and may push to ${GH_API_REPO}"
 
-# Prefixed with @ so the token never reaches the build log.
+# Prefixed with @ so the token never reaches the build log. Read as $${GITHUB_GH_TOKEN}, which the
+# shell expands from the exported environment: make would expand $(GITHUB_GH_TOKEN) into the
+# `sh -c` command line, and /proc/<pid>/cmdline is world-readable. printf is a shell builtin.
 login_to_gh: check_gh_credentials ## Login to Github CLI with Access Token
-	@echo $(GITHUB_GH_TOKEN) | gh auth login -p ssh --with-token
+	@printf '%s\n' "$${GITHUB_GH_TOKEN}" | gh auth login -p ssh --with-token
 
 # `gh release create -n ""` succeeds and publishes an EMPTY release, so a forgotten RELEASE.md
 # entry - or a heading whose wording drifted away from what the CURRENT_RELEASE_NOTES flip-flop
@@ -684,11 +686,15 @@ clone_devops_accounts: ## Clones devops-accounts repo
 
 # Exactly the three credentials `release` uses, each by an ANCHORED `^NAME=` match. The devops files
 # carry '#' comment lines that mention variable names, so an unanchored grep can return a comment,
-# and a '#' reaching the `make release` line below comments out every credential after it.
-# @ keeps the values out of the log.
+# and a '#' reaching a command line comments out every credential after it.
+# The values are exported into the sub-make's ENVIRONMENT: `make release NAME=<value>` would put every
+# value on make's argv, which /proc/<pid>/cmdline shows to every user on the host.
 run_release_with_devops: ## Gets Credentials from devops-repo and run release command with them
-	$(eval info:= $(shell grep -hE '^GITHUB_GH_TOKEN=' ${DEVOPS_ACCOUNT_DIR}/account_github.env; grep -hE '^(PACKAGIST_USERNAME|PACKAGIST_API_TOKEN)=' ${DEVOPS_ACCOUNT_DIR}/account_packagist.env))
-	@make release $(info)
+	@set -a \
+		&& eval "$$(grep -hE '^GITHUB_GH_TOKEN=' ${DEVOPS_ACCOUNT_DIR}/account_github.env; \
+			grep -hE '^(PACKAGIST_USERNAME|PACKAGIST_API_TOKEN)=' ${DEVOPS_ACCOUNT_DIR}/account_packagist.env)" \
+		&& set +a \
+		&& $(MAKE) release
 
 # All three tests used to match on a SUBSTRING, which made each of them lie:
 #   * `git branch --all | grep "release/7.1.0"` also matches release/7.1.0-rc1 and
