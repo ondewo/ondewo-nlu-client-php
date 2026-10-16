@@ -67,7 +67,7 @@ The client version tracks the ONDEWO NLU API in major and minor version, so pin 
 matches the server you talk to:
 
 ```bash
-composer require ondewo/nlu-client-php:^7.3
+composer require ondewo/nlu-client-php:^7.4
 ```
 
 or, in `composer.json`:
@@ -75,7 +75,7 @@ or, in `composer.json`:
 ```json
 {
   "require": {
-    "ondewo/nlu-client-php": "^7.3"
+    "ondewo/nlu-client-php": "^7.4"
   }
 }
 ```
@@ -124,7 +124,7 @@ working tree.
 ```
 .
 ├── ondewo-nlu-api          <----- submodule: the .proto definitions (ondewo/ = the services, google/ = imports)
-├── ondewo-proto-compiler   <----- submodule: the compiler images, pinned to tags/5.15.2
+├── ondewo-proto-compiler   <----- submodule: the compiler images, pinned to tags/5.15.7
 ├── auth                    <----- HAND-WRITTEN sources (bearer token authenticator, ClientConfig: TLS / mutual TLS)
 ├── src                     <----- GENERATED stubs, committed - compiler-owned, wiped on every generation run
 │   ├── GPBMetadata         <----- descriptor bootstrap, one class per .proto
