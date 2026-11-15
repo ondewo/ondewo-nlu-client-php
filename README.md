@@ -36,7 +36,7 @@ The only hand-written PHP is the bearer-token authentication surface in `auth/`,
 
 ## Requirements
 
-* PHP >= 8.1
+* PHP >= 8.2
 * The **grpc** PHP extension (`ext-grpc`) — every generated `<Service>Client` extends `\Grpc\BaseStub`
 * The **bcmath** PHP extension (`ext-bcmath`) — only to parse integers out of the JSON wire
   format; `google/protobuf` merely *suggests* it, so `mergeFromJsonString()` on a message with an
@@ -370,7 +370,7 @@ make test_via_docker   # `make test` in the utils image, dependencies included -
 ```
 
 `make ci` is `composer validate` → `php -l` over the hand-written sources → PHPUnit with coverage → the
-coverage threshold gate. It runs on PHP 8.1 and 8.4 in GitHub Actions, against the **committed** stubs. That
+coverage threshold gate. It runs on PHP 8.2 and 8.4 in GitHub Actions, against the **committed** stubs. That
 workflow (`.github/workflows/ci.yml`) is only a test and lint gate: no docker image is built, no proto compiler
 runs, nothing is packaged or published and no secret is used there. `make test` adds the credential-free
 [Packagist dry run](#what-is-verified-without-credentials) and the stub inventory (`make check_build`); the
