@@ -17,7 +17,7 @@ use Google\Protobuf\RepeatedField;
 class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      */
@@ -54,7 +54,7 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $tool_call_id
-     *           Stable id assigned by the upstream framework (autogen / langchain).
+     *           Stable id assigned by the upstream framework (e.g. langchain).
      *     @type string $tool_name
      *           Name of the tool / function invoked.
      *     @type \Google\Protobuf\Struct $arguments
@@ -71,7 +71,7 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      * @return string
@@ -82,15 +82,15 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      * @param string $var
      * @return $this
      */
-    public function setToolCallId($var)
+    public function setToolCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tool_call_id = $var;
 
         return $this;
@@ -114,9 +114,9 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setToolName($var)
+    public function setToolName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tool_name = $var;
 
         return $this;
@@ -150,9 +150,8 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setArguments($var)
+    public function setArguments(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->arguments = $var;
 
         return $this;
@@ -186,9 +185,8 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -212,9 +210,9 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmCallId($var)
+    public function setLlmCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_call_id = $var;
 
         return $this;

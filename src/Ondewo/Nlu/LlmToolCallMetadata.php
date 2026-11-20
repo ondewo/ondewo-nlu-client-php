@@ -17,7 +17,7 @@ use Google\Protobuf\RepeatedField;
 class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      */
@@ -78,7 +78,7 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $tool_call_id
-     *           Stable id assigned by the upstream framework (autogen / langchain).
+     *           Stable id assigned by the upstream framework (e.g. langchain).
      *     @type string $tool_name
      *           Name of the tool / function invoked.
      *     @type \Google\Protobuf\Timestamp $start_time
@@ -103,7 +103,7 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      * @return string
@@ -114,15 +114,15 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      * @param string $var
      * @return $this
      */
-    public function setToolCallId($var)
+    public function setToolCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tool_call_id = $var;
 
         return $this;
@@ -146,9 +146,9 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setToolName($var)
+    public function setToolName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tool_name = $var;
 
         return $this;
@@ -182,9 +182,8 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -218,9 +217,8 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -244,9 +242,8 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -280,9 +277,8 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -316,9 +312,8 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setArguments($var)
+    public function setArguments(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->arguments = $var;
 
         return $this;
@@ -352,9 +347,8 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setResult($var)
+    public function setResult(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->result = $var;
 
         return $this;
@@ -378,9 +372,9 @@ class LlmToolCallMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

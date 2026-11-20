@@ -23,7 +23,8 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
      */
     protected $llm_call_id = '';
     /**
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      *
      * Generated from protobuf field <code>string provider = 2;</code>
      */
@@ -56,7 +57,8 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
      *     @type string $llm_call_id
      *           Collector-assigned id grouping all events emitted for this LLM call.
      *     @type string $provider
-     *           Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     *           Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     *           was removed).
      *     @type string $model_name
      *           Concrete model identifier (e.g. "claude-3-5-sonnet-20241022").
      *     @type string $agent_name
@@ -88,16 +90,17 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmCallId($var)
+    public function setLlmCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_call_id = $var;
 
         return $this;
     }
 
     /**
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      *
      * Generated from protobuf field <code>string provider = 2;</code>
      * @return string
@@ -108,15 +111,16 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      *
      * Generated from protobuf field <code>string provider = 2;</code>
      * @param string $var
      * @return $this
      */
-    public function setProvider($var)
+    public function setProvider(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->provider = $var;
 
         return $this;
@@ -140,9 +144,9 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -166,9 +170,9 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentName($var)
+    public function setAgentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_name = $var;
 
         return $this;
@@ -202,9 +206,8 @@ class LlmCallStartedEvent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
