@@ -54,11 +54,11 @@ export
 
 # MUST BE THE SAME AS THE API in Major and Minor Version Number
 # example: API 2.9.0 --> Client 2.9.X
-ONDEWO_NLU_VERSION=7.4.0
+ONDEWO_NLU_VERSION=7.5.0
 
 # Submodule pins. Both are checked out by `make checkout_defined_submodule_versions`, so the
 # stubs of a release are always reproducible from the two commits recorded here.
-ONDEWO_NLU_API_GIT_BRANCH=tags/7.4.0
+ONDEWO_NLU_API_GIT_BRANCH=tags/7.5.0
 # The compiler has to be 5.15.2 or newer: an older image adds "auth/" to composer.json's
 # autoload.classmap and then aborts its own next run on it ('Could not scan for classes inside "auth/"').
 ONDEWO_PROTO_COMPILER_GIT_BRANCH=tags/5.15.7
@@ -517,7 +517,7 @@ check_release_notes: ## Assert RELEASE.md carries an entry for ONDEWO_NLU_VERSIO
 	echo "$(GREEN)[SUCCESS]$(NC) RELEASE.md has release notes for ${ONDEWO_NLU_VERSION}"
 
 build_gh_release: check_release_notes ## Generate Github Release with CLI
-	gh release create --repo $(GH_REPO) "$(ONDEWO_NLU_VERSION)" -n "$(CURRENT_RELEASE_NOTES)" -t "Release ${ONDEWO_NLU_VERSION}"
+	gh release create --latest=false --repo $(GH_REPO) "$(ONDEWO_NLU_VERSION)" -n "$(CURRENT_RELEASE_NOTES)" -t "Release ${ONDEWO_NLU_VERSION}"
 
 ########################################################
 #		PACKAGIST
